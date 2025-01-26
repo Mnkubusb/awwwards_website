@@ -6,7 +6,7 @@ import RoundedCorners from './RoundedCorners'
 import Button from './Button'
 
 const Story = () => {
-    const frameRef = useRef(null)
+    const frameRef = useRef<HTMLImageElement | null>(null)
 
     const handleMouseLeave = () => {
         const element = frameRef.current;
@@ -21,9 +21,7 @@ const Story = () => {
         const { clientX, clientY } = e;
         const element = frameRef.current;
 
-        if (element) {
-            return;
-        }
+        if (!element) return ;
 
         const { left, top, width, height } = element.getBoundingClientRect();
 
@@ -55,14 +53,12 @@ const Story = () => {
                         className='!text-white mt-5 pointer-events-none mix-blend-difference relative z-10 flex flex-col gap-1 text-7xl uppercase leading-[.9] sm:px-32 md:text-[6rem] font-zentry font-black'
                         sectionId='#story'
                     />
-                    <div className='story-img-container '>
+                    <div className='story-img-container'>
                         <div className="story-img-mask">
                             <div className='story-img-content'>
                                 <img
                                     ref={frameRef}
                                     onMouseLeave={handleMouseLeave}
-                                    onMouseUp={handleMouseLeave}
-                                    onMouseEnter={handleMouseLeave}
                                     onMouseMove={handleMouseMove}
                                     src="/img/entrance.webp" alt="entrance"
                                     className='object-contain'

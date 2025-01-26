@@ -5,7 +5,7 @@ import { TiLocationArrow } from 'react-icons/ti';
 const BentoTilt = ({ children, className }: { children: React.ReactNode, className?: string }) => {
 
     const [transformStyle , setTransformStyle] = useState('');
-    const itemRef = useRef(null);
+    const itemRef = useRef<HTMLDivElement>(null);
 
     const handleMouseMove = ( e : React.MouseEvent) => {
         if(!itemRef.current) {

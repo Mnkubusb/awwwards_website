@@ -117,6 +117,7 @@ body {
   .story-img-container {
     @apply relative md:h-dvh h-[90vh] w-full;
     filter: url("#flt_tag");
+    perspective: 1000px;
   }
 
   .story-img-mask {
