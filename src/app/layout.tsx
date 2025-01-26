@@ -1,6 +1,34 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
+
+
+const zentry = localFont({
+    src: "./fonts/zentry-regular.woff2",
+    variable: "--font-zentry",
+    weight: "900",
+})
+
+const general = localFont({
+  src: "./fonts/general.woff2",
+  variable: "--font-general",
+});
+
+const robertRegular = localFont({
+  src: "./fonts/robert-regular.woff2",
+  variable: "--font-robert-regular",
+});
+
+const robertMedium = localFont({
+  src: "./fonts/robert-medium.woff2",
+  variable: "--font-robert-medium",
+});
+
+const circularWeb = localFont({
+  src: "./fonts/circularweb-book.woff2",
+  variable: "--font-circular-web",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${zentry.variable} ${general.variable} ${robertRegular.variable} ${robertMedium.variable} ${circularWeb.variable} antialiased `}
       >
         {children}
       </body>
