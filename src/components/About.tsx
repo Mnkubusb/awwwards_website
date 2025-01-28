@@ -18,7 +18,7 @@ const About = () => {
                 pinSpacing:true,
             }
         })
-        clipAnimation.fromTo('.about-image', {clipPath: 'path("M 865.212 112.06 L 865.212 112.06 Q 873.055 113.64 874.383 121.529 L 941.694 521.261 Q 943.022 529.15 935.035 529.602 L 608.724 548.074 Q 600.736 548.526 600.626 540.527 L 594.092 65.4239 Q 593.982 57.4247 601.824 59.0044 Z")'}, {clipPath: 'path("M 1520.59 -404.203 L 1520.59 -404.203 Q 1528.59 -404.203 1528.59 -396.203 L 1528.59 1125.8 Q 1528.59 1133.8 1520.59 1133.8 L -1.40625 1133.8 Q -9.40625 1133.8 -9.40625 1125.8 L -9.40625 -396.203 Q -9.40625 -404.203 -1.40625 -404.203 Z")'})
+        clipAnimation.fromTo('.about-image', {clipPath: 'polygon(40% 14%, 60% 17%, 62% 78%, 39% 77%)'}, {clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'})
     });
 
   return (
@@ -36,11 +36,11 @@ const About = () => {
             </div>
         </div>
         <div className='h-dvh w-screen' id='clip'>
-            <div className='mask-clip-path about-image'>
+            <div className='mask-clip-path about-image'  >
                 <img src="/img/about.webp" alt='Background' className='absolute left-0 top-0 size-full object-cover' />
             </div>
             <div className='h-dvh w-screen absolute z-50'>
-                <img src="/img/custom-home-intro-desktop-outer@lg.webp" alt="" className='size-full scale-125 sm:scale-75 object-cover object-center' />
+                <img src="/img/custom-home-intro-desktop-outer@lg.webp" alt="" className='size-full scale-75 sm:scale-125 object-cover object-center' />
             </div>
         </div>
     </div>

@@ -13,6 +13,7 @@ const Hero = () => {
     const [hasClicked, sethasClicked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loadedVideos, setLoadedVideos] = useState(0);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
 
     const totalVideos = 4;
     const nextVdRef = useRef(null);
@@ -26,20 +27,21 @@ const Hero = () => {
     useGSAP(() => {
         if (hasClicked) {
             gsap.set('#next-video', { visibility: 'visible' });
-            gsap.to('#next-video', {
-                transformOrigin: 'center center',
-                scale: 1,
-                width: '100%',
-                height: '100%',
-                duration: 1,
-                ease: 'power1.inOut',
-            })
             gsap.from('#current-video', {
                 transformOrigin: 'center center',
                 scale: 0,
                 width: 0,
                 height: 0,
                 duration: 1.5,
+                ease: 'power1.inOut',
+            })
+            gsap.to('#next-video', {
+                transformOrigin: 'center center',
+                borderRadius: 0,
+                scale: 1,
+                width: '100%',
+                height: '100%',
+                duration: 1,
                 ease: 'power1.inOut',
             })
         }
@@ -53,9 +55,8 @@ const Hero = () => {
             '#video-frame',
             { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' },
             {
-                clipPath: 'polygon(14% 0, 75% 0, 88% 89%, 2% 88%)',
+                clipPath: 'polygon(14% 0%, 75% 0%, 88% 89%, 2% 88%)',
                 rotateX: 9,
-                borderRadius: '8px',
                 duration: 5,
                 ease: 'power1.inOut',
                 scrollTrigger: {
@@ -66,19 +67,20 @@ const Hero = () => {
                 },
             }
         );
-    })
+    }, { dependencies: [CurrentIndex], revertOnUpdate: true })
     useGSAP(() => {
         gsap.from('#video-frame', {
-            clipPath: 'polygon(14% 0, 75% 0, 88% 89%, 2% 88%)',
+            clipPath: 'polygon(14% 0%, 75% 0%, 88% 89%, 2% 88%)',
             ease: 'power1.inOut',
         })
         gsap.to('#video-frame', {
-            clipPath: 'polygon(14% 0, 75% 0, 85% 90%, 10% 60%)',
+            clipPath: 'polygon(14% 0%, 75% 0%, 85% 90%, 10% 60%)',
             duration: 2,
             ease: 'power1.inOut',
             scrollTrigger: {
                 trigger: '#video-frame',
                 start: 'bottom center',
+                end: () => '+=300 center',
                 scrub: true,
             }
         })
@@ -99,7 +101,7 @@ const Hero = () => {
 
     return (
         <>
-            <div className='relative h-dvh w-screen overflow-x-hidden scroll-smooth'>
+            <div className='relative h-dvh w-screen overflow-hidden scroll-smooth'>
                 {isLoading && (
                     <div className='flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50'>
                         <div className='three-body'>
@@ -109,21 +111,29 @@ const Hero = () => {
                         </div>
                     </div>
                 )}
-                <div id='video-frame' className='relative z-10 h-dvh w-screen overflow-hidden bg-blue-75'>
+                <div id='video-frame' className='relative z-10 h-dvh w-screen bg-blue-75'>
                     <div>
                         <div className='mask-clip-path absolute-center z-[999] size-64 cursor-pointer overflow-hidden rounded-lg '>
                             <div className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100 rounded-lg ' onClick={handleMiniVdClick} >
-                                <video ref={nextVdRef} src={getVideoSrc(CurrentIndex + 1 === totalVideos + 1 ? 1 : CurrentIndex + 1)} loop muted id='current-video' className='size-64 origin-center scale-[3] object-cover object-center rounded-lg'
+                                <video ref={nextVdRef} src={getVideoSrc(CurrentIndex + 1 === totalVideos + 1 ? 1 : CurrentIndex + 1)} loop muted preload='auto' id='current-video' className='md:size-64 size-32 origin-center scale-[3] object-cover object-center rounded-lg'
                                     onLoadedData={handleLoadedVideo}
+                                    style={{
+                                        transition: "opacity 0.5s ease-in-out, transform 0.5s ease-in-out",
+                                        opacity: loadedVideos ? 1 : 0, // Smooth fade-in after video loads
+                                    }}
                                 />
                             </div>
                         </div>
-                        <video ref={nextVdRef} src={getVideoSrc(CurrentIndex)} loop muted id='next-video'
+                        <video ref={videoRef} preload='auto' src={getVideoSrc(CurrentIndex)} loop muted id='next-video'
                             autoPlay
-                            className='absolute-center z-20 invisible absolute size-64 object-cover object-center '
+                            className='absolute-center z-20 invisible absolute size-64 object-cover object-center hover:visible rounded-lg'
+                            style={{
+                                opacity: isLoading ? 0 : 1,
+                                transition: "opacity 0.5s ease-in-out",
+                            }}
                             onLoadedData={handleLoadedVideo}
                         />
-                        <video src={getVideoSrc(CurrentIndex === totalVideos - 1 ? 1 : CurrentIndex)} autoPlay loop muted className='absolute left-0 top-0 size-full object-cover object-center'
+                        <video preload='auto' src={getVideoSrc(CurrentIndex === totalVideos - 1 ? 1 : CurrentIndex)} autoPlay loop muted className='absolute left-0 top-0 size-full object-cover object-center'
                             onLoadedData={handleLoadedVideo}
                         />
                     </div>

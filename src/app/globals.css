@@ -22,6 +22,9 @@ body {
   overflow-x: hidden;
 }
 
+#video-frame{
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
 
 
 @layer base{
@@ -49,6 +52,7 @@ body {
 }
 
 
+
 @layer utilities {
   .border-hsla {
     @apply border border-white/20;
@@ -71,7 +75,7 @@ body {
   }
 
   .mask-clip-path {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 
   .special-font b {
@@ -87,7 +91,7 @@ body {
   }
 
   .about-image {
-    @apply absolute left-0 top-0 z-20 h-dvh w-dvw overflow-hidden ;
+    @apply absolute left-0 top-0 z-20 h-dvh w-dvw overflow-hidden;
   }
 
   .animated-title {
@@ -99,7 +103,6 @@ body {
     transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
     transform-origin: 50% 50% -150px !important;
     will-change: opacity, transform;
-    font-size: 6rem;
   }
 
   .bento-tilt_1 {
