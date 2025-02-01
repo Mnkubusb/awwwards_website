@@ -13,7 +13,7 @@ const Hero = () => {
     const [hasClicked, sethasClicked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loadedVideos, setLoadedVideos] = useState(0);
-    const videoRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     const totalVideos = 4;
     const nextVdRef = useRef(null);
@@ -88,10 +88,23 @@ const Hero = () => {
         })
     })
 
-    const handleMouseMove = (e) => {
+    const[transformStyle , setTransformStyle] = useState('');
+    const handleMouseMove = ( e : React.MouseEvent) => {
         if(!videoRef.current) return;
 
+        const { left , top , width , height } = videoRef.current.getBoundingClientRect();
+        const relativeX = (e.clientX - left) / width;
+        const relativeY = (e.clientY - top) / height;
 
+        const tiltX = (relativeY - 0.5)* 10;
+        const tiltY = (relativeX - 0.5)* -10;
+
+        const newTransform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(0.98, 0.98, 0.98)`;
+        setTransformStyle(newTransform);
+    }
+
+    const handleMouseLeave = () => {
+        setTransformStyle('scale3d(3,3,3) rotateX(5deg) rotateY(6deg) perspective(700px)');
     }
 
     const upcomingVide0Index = (CurrentIndex % totalVideos) + 1;
@@ -125,11 +138,11 @@ const Hero = () => {
                             <div className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100 rounded-lg ' onClick={handleMiniVdClick} >
                                 <video ref={nextVdRef}
                                 onMouseMove={handleMouseMove}
+                                onMouseLeave={handleMouseLeave}
                                 src={getVideoSrc(CurrentIndex + 1 === totalVideos + 1 ? 1 : CurrentIndex + 1)} loop muted preload='auto' id='current-video' className='md:size-64 size-32 origin-center scale-[3] object-cover object-center rounded-lg'
                                     onLoadedData={handleLoadedVideo}
                                     style={{
-                                        transition: "opacity 0.5s ease-in-out, transform 0.5s ease-in-out",
-                                        opacity: loadedVideos ? 1 : 0, // Smooth fade-in after video loads
+                                        transform: transformStyle,
                                     }}
                                 />
                             </div>
