@@ -13,7 +13,7 @@ const Hero = () => {
     const [hasClicked, sethasClicked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loadedVideos, setLoadedVideos] = useState(0);
-    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const videoRef = useRef(null);
 
     const totalVideos = 4;
     const nextVdRef = useRef(null);
@@ -46,6 +46,8 @@ const Hero = () => {
             })
         }
     }, { dependencies: [CurrentIndex], revertOnUpdate: true });
+
+
 
     useGSAP(() => {
         gsap.set('#video-frame', {
@@ -86,6 +88,12 @@ const Hero = () => {
         })
     })
 
+    const handleMouseMove = (e) => {
+        if(!videoRef.current) return;
+
+
+    }
+
     const upcomingVide0Index = (CurrentIndex % totalVideos) + 1;
 
     const getVideoSrc = (index: number) => `/videos/hero-${index}.mp4`;
@@ -115,7 +123,9 @@ const Hero = () => {
                     <div>
                         <div className='mask-clip-path absolute-center z-[999] size-64 cursor-pointer overflow-hidden rounded-lg '>
                             <div className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100 rounded-lg ' onClick={handleMiniVdClick} >
-                                <video ref={nextVdRef} src={getVideoSrc(CurrentIndex + 1 === totalVideos + 1 ? 1 : CurrentIndex + 1)} loop muted preload='auto' id='current-video' className='md:size-64 size-32 origin-center scale-[3] object-cover object-center rounded-lg'
+                                <video ref={nextVdRef}
+                                onMouseMove={handleMouseMove}
+                                src={getVideoSrc(CurrentIndex + 1 === totalVideos + 1 ? 1 : CurrentIndex + 1)} loop muted preload='auto' id='current-video' className='md:size-64 size-32 origin-center scale-[3] object-cover object-center rounded-lg'
                                     onLoadedData={handleLoadedVideo}
                                     style={{
                                         transition: "opacity 0.5s ease-in-out, transform 0.5s ease-in-out",
