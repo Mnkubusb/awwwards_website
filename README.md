@@ -49,17 +49,7 @@ This project highlights beautiful frontend animations, seamless responsiveness, 
 
 4. **Visit:**
    Open [http://localhost:3000](http://localhost:3000) to see your clone live.
-
-## 📂 Folder Structure (Simplified)
-
-```
-/app (Next.js app router files)
-  /components (Reusable UI components)
-  /sections (Landing page sections)
-  /utils (Animation helpers)
-  /public (Assets - images, fonts)
-tailwind.config.ts
-```
+   
 
 ## 🔥 Live Demo
 Check out the deployed version [here](https://awwwards-website-phi.vercel.app/)
