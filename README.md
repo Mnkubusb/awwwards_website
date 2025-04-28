@@ -9,7 +9,7 @@ This project highlights beautiful frontend animations, seamless responsiveness, 
 - **TailwindCSS** – Utility-first styling
 - **GSAP** – Stunning scroll-based animations
 - **Framer Motion** – Micro-interactions
-- **TypeScript** (optional if you used it)
+- **TypeScript**
 - **Vercel** – Deployment
 
 ## ✨ Features
@@ -59,11 +59,10 @@ This project highlights beautiful frontend animations, seamless responsiveness, 
   /utils (Animation helpers)
   /public (Assets - images, fonts)
 tailwind.config.ts
-gsap.ts (GSAP animation configurations)
 ```
 
 ## 🔥 Live Demo
-Check out the deployed version [here](https://your-live-demo-link.com)
+Check out the deployed version [here](https://awwwards-website-phi.vercel.app/)
 
 ---
 
@@ -73,9 +72,9 @@ Check out the deployed version [here](https://your-live-demo-link.com)
 
 ## 📢 Contact
 If you liked this project, connect with me:  
-- Portfolio: [your-portfolio-link.com](https://your-portfolio-link.com)  
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)  
-- Twitter: [@yourhandle](https://twitter.com/yourhandle)
+- Portfolio: [Portfolio](https://manik-chand-sahu.vercel.app)  
+- LinkedIn: [LinkedIn](https://linkedin.com/in/manik-chand-sahu)  
+- Twitter: [@MAnikChandSahu6](https://twitter.com/MAnikChandSahu6)
 
 ---
 
